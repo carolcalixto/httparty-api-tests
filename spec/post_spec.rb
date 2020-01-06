@@ -1,8 +1,7 @@
 describe "post" do
     context "when new user" do
         before do
-            @new_user = { full_name: "Caroline Calixto", email: "ccalixto@gmail.com", password: "pwd123" }
-            Database.new.delete_user(@new_user[:email])
+            @new_user = build(:user).to_hash
 
             @result = HTTParty.post(
                 "http://localhost:3001/user",
@@ -14,6 +13,6 @@ describe "post" do
         end
 
         it { expect(@result.response.code).to eql "200" }
-
     end
+
 end
