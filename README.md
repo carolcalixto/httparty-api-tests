@@ -1,2 +1,2 @@
-# httparty-api-tests
+# nflix-api
 Api tests with HTTParty
