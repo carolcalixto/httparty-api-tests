@@ -14,7 +14,6 @@ describe "post" do
             @new_user = build(:user_registered).to_hash
             @result = ApiUser.save(@new_user)
         end
-
         it { expect(@result.response.code).to eql "409" }
         it { expect(@result.parsed_response["msg"]).to eql "Oops. Looks like you already have an account with this email address." }
     end
@@ -33,7 +32,6 @@ describe "post" do
             @new_user = build(:user_empty_name).to_hash
             @result = ApiUser.save(@new_user)
         end
-
         it { expect(@result.response.code).to eql "412" }
         it { expect(@result.parsed_response["msg"]).to eql "Validation notEmpty on full_name failed" }
     end
@@ -43,7 +41,6 @@ describe "post" do
             @new_user = build(:user_empty_email).to_hash
             @result = ApiUser.save(@new_user)
         end
-
         it { expect(@result.response.code).to eql "412" }
         it { expect(@result.parsed_response["msg"]).to eql "Validation notEmpty on email failed" }
     end
@@ -53,9 +50,35 @@ describe "post" do
             @new_user = build(:user_empty_password).to_hash
             @result = ApiUser.save(@new_user)
         end
-
         it { expect(@result.response.code).to eql "412" }
         it { expect(@result.parsed_response["msg"]).to eql "Validation notEmpty on password failed" }
+    end
+
+    context "when null name" do
+        before do
+            @new_user = build(:user_null_name).to_hash
+            @result = ApiUser.save(@new_user)
+        end
+        it { expect(@result.response.code).to eql "412" }
+        it { expect(@result.parsed_response["msg"]).to eql "Users.full_name cannot be null" }
+    end
+
+    context "when null email" do
+        before do
+            @new_user = build(:user_null_email).to_hash
+            @result = ApiUser.save(@new_user)
+        end
+        it { expect(@result.response.code).to eql "412" }
+        it { expect(@result.parsed_response["msg"]).to eql "Users.email cannot be null" }
+    end
+
+    context "when null password" do
+        before do
+            @new_user = build(:user_null_password).to_hash
+            @result = ApiUser.save(@new_user)
+        end
+        it { expect(@result.response.code).to eql "412" }
+        it { expect(@result.parsed_response["msg"]).to eql "Users.password cannot be null" }
     end
 
 end

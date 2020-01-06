@@ -45,5 +45,23 @@ FactoryBot.define do
         email { "ccalixt@gmail.com" }
         password { "" }
     end
+
+    factory :user_null_name, class: UserModel do
+        email { "ccalixt@gmail.com" }
+        password { "pwd123" }
+    end
+
+    factory :user_null_email, class: UserModel do
+        full_name { "Carol Calixto" }
+        password { "pwd123" }
+    end
+
+    factory :user_null_password, class: UserModel do
+        full_name { "Carol Calixto" }
+        email { "ccalixt@gmail.com" }
+    end
+
+
+
     
 end
