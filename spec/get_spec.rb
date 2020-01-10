@@ -13,7 +13,7 @@ describe "get" do
         it { expect(Time.parse(result.parsed_response["updatedAt"])).to eql Time.parse(user_data["updated_at"]) }
     end
 
-    context "when not found" do
+    context "when user do not exist" do
         let(:user) { build(:user_registered) }
         let(:token) { ApiUser.token(user.email, user.password) }
         let(:result) { ApiUser.find(token, "0") }
